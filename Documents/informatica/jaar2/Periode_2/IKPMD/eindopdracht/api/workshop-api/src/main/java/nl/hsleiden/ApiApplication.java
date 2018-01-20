@@ -114,7 +114,7 @@ public class ApiApplication extends Application<ApiConfiguration>
             //This should be used to empty your database.
   //        args = new String[] { "db", "drop-all", "--confirm-delete-everything", "configuration.yml" };
             // This should be used to import all tables to your database.
-            //args = new String[] { "db", "migrate", "configuration.yml" };
+  //        args = new String[] { "db", "migrate", "configuration.yml" };
         }
         new ApiApplication().run(args);
     }

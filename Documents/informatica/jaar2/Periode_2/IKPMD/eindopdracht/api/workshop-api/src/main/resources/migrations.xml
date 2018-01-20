@@ -19,4 +19,47 @@
             </column>
         </createTable>
     </changeSet>
+    
+    <changeSet id="2" author="Suzanne">
+        <insert tableName="pagina">
+            <column name="id" value="1"/>
+            <column name="name" value="titelpagina"/>
+            <column name="opend" value="0"/>
+        </insert>
+        <insert tableName="pagina">
+            <column name="id" value="2"/>
+            <column name="name" value="colofon"/>
+            <column name="opend" value="0"/>
+        </insert>
+                <insert tableName="pagina">
+            <column name="id" value="3"/>
+            <column name="name" value="waaromhandreiking"/>
+            <column name="opend" value="0"/>
+        </insert>
+                <insert tableName="pagina">
+            <column name="id" value="4"/>
+            <column name="name" value="hoofdstuk1"/>
+            <column name="opend" value="0"/>
+        </insert>
+        <insert tableName="pagina">
+            <column name="id" value="5"/>
+            <column name="name" value="hoofdstuk2"/>
+            <column name="opend" value="0"/>
+        </insert>
+        <insert tableName="pagina">
+            <column name="id" value="6"/>
+            <column name="name" value="hoofdstuk3"/>
+            <column name="opend" value="0"/>
+        </insert>
+        <insert tableName="pagina">
+            <column name="id" value="7"/>
+            <column name="name" value="hoofdstuk4"/>
+            <column name="opend" value="0"/>
+        </insert>
+        <insert tableName="pagina">
+            <column name="id" value="8"/>
+            <column name="name" value="aboutHandreiking"/>
+            <column name="opend" value="0"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
