@@ -19,5 +19,5 @@ server:
 database:
     driverClass: org.postgresql.Driver 
     user: postgres
-    password: ennazuS94
+    password: postgres
     url: jdbc:postgresql://localhost:5432/ikpmd-politieApp
