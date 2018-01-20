@@ -1,22 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package nl.hsleiden;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.setup.Bootstrap;
+import nl.hsleiden.model.*;
+import org.hibernate.SessionFactory;
 
 /**
  *
  * @author Peter van Vliet
  */
-public class ApiGuiceModule extends AbstractModule
-{
-    @Override
-    protected void configure()
-    {
+public class ApiGuiceModule extends AbstractModule {
         
+    public static final HibernateBundle<ApiConfiguration> hibernateBundle = new HibernateBundle<ApiConfiguration>(
+        User.class, Pagina.class) {
+
+        @Override
+        public DataSourceFactory getDataSourceFactory(ApiConfiguration configuration) {
+            return configuration.getDataSourceFactory();
+        }
+    };
+    
+    public ApiGuiceModule(Bootstrap<ApiConfiguration> bootstrap) {
+        bootstrap.addBundle(hibernateBundle);
+    }
+
+    @Override
+    protected void configure() {
+    }
+    
+    @Provides
+    public SessionFactory provideSessionFactory() {
+        return hibernateBundle.getSessionFactory();
     }
 }

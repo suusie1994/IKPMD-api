@@ -12,6 +12,8 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.migrations.MigrationsBundle;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import nl.hsleiden.model.User;
@@ -44,10 +46,16 @@ public class ApiApplication extends Application<ApiConfiguration>
     public void initialize(Bootstrap<ApiConfiguration> bootstrap)
     {
         assetsBundle = (ConfiguredBundle) new ConfiguredAssetsBundle("/assets/", "/client", "index.html");
-        guiceBundle = createGuiceBundle(ApiConfiguration.class, new ApiGuiceModule());
+        guiceBundle = createGuiceBundle(ApiConfiguration.class, new ApiGuiceModule(bootstrap));
         
         bootstrap.addBundle(assetsBundle);
         bootstrap.addBundle(guiceBundle);
+        bootstrap.addBundle(new MigrationsBundle<ApiConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(ApiConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
     
     @Override
@@ -100,6 +108,14 @@ public class ApiApplication extends Application<ApiConfiguration>
     
     public static void main(String[] args) throws Exception
     {
+        if (args.length == 0) {
+            // This should be used as default to start the server.
+            args = new String[]{"server", "configuration.yml"};
+            //This should be used to empty your database.
+  //        args = new String[] { "db", "drop-all", "--confirm-delete-everything", "configuration.yml" };
+            // This should be used to import all tables to your database.
+            //args = new String[] { "db", "migrate", "configuration.yml" };
+        }
         new ApiApplication().run(args);
     }
 }
