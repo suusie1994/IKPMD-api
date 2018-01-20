@@ -110,11 +110,11 @@ public class ApiApplication extends Application<ApiConfiguration>
     {
         if (args.length == 0) {
             // This should be used as default to start the server.
-           // args = new String[]{"server", "configuration.yml"};
+            args = new String[]{"server", "configuration.yml"};
             //This should be used to empty your database.
-  //        args = new String[] { "db", "drop-all", "--confirm-delete-everything", "configuration.yml" };
+            // args = new String[] { "db", "drop-all", "--confirm-delete-everything", "configuration.yml" };
             // This should be used to import all tables to your database.
-         args = new String[] { "db", "migrate", "configuration.yml" };
+            //args = new String[] { "db", "migrate", "configuration.yml" };
         }
         new ApiApplication().run(args);
     }
