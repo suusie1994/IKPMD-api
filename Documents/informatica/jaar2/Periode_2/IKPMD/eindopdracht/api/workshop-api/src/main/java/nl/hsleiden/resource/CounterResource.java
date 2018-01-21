@@ -3,8 +3,8 @@ package nl.hsleiden.resource;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.dropwizard.hibernate.UnitOfWork;
-import nl.hsleiden.model.Developer;
-import nl.hsleiden.service.DeveloperService;
+import nl.hsleiden.model.Counter;
+import nl.hsleiden.service.CounterService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
@@ -13,13 +13,13 @@ import javax.ws.rs.core.MediaType;
 import nl.hsleiden.View;
 
 @Singleton
-@Path("/developers")
+@Path("/counters")
 @Produces(MediaType.APPLICATION_JSON)
-public class DeveloperResource {
-    private final DeveloperService service;
+public class CounterResource {
+     private final CounterService service;
     
     @Inject
-    public DeveloperResource(DeveloperService service){
+    public CounterResource(CounterService service){
         this.service = service;
     }
     @GET
@@ -27,25 +27,23 @@ public class DeveloperResource {
     @JsonView(View.Public.class)
     @Timed
     @UnitOfWork
-    public Developer getDeveloperById(@PathParam("id") int id) {
+    public Counter getcountById(@PathParam("id") int id) {
         return this.service.getById(id);
     }
-    
     @GET
     @JsonView(View.Public.class)
     @Timed
     @UnitOfWork
-    public Developer[] getDevelopers(){
+    public Counter[] getCounters(){
         return this.service.getAll();
     }
-    
     @PUT
     @Path("/create")
     @JsonView(View.Public.class)
     @Timed
     @UnitOfWork
-    public Developer create(@Valid Developer developer){
-        return this.service.create(developer);
+    public Counter create(@Valid Counter counter){
+        return this.service.create(counter);
     }
     
     @POST
@@ -53,8 +51,8 @@ public class DeveloperResource {
     @JsonView(View.Public.class)
     @Timed
     @UnitOfWork
-    public Developer update(@Valid Developer developer){
-        return this.service.update(developer);
+    public Counter update(@Valid Counter counter){
+        return this.service.update(counter);
     }
     
     @DELETE
@@ -65,4 +63,5 @@ public class DeveloperResource {
     public void delete(@PathParam("id")int id) {
         this.service.remove(id);
     }
+    
 }
